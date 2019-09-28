@@ -1,5 +1,6 @@
 import java.util.*;
 import java.net.*;
+import java.lang.Math; 
 class RPCServer
 {
     DatagramSocket ds;
@@ -8,10 +9,12 @@ class RPCServer
     float val1,val2;
     RPCServer()
     {
+        result = "(Danilo) ";
         try
         {
+            
             ds=new DatagramSocket(1200);
-            byte b[]=new byte[4096];
+            byte b[]=new byte[8192];
             while(true)
             {
             dp=new DatagramPacket(b,b.length);
@@ -37,24 +40,32 @@ class RPCServer
             InetAddress ia = InetAddress.getLocalHost();
             if(methodName.equalsIgnoreCase("add"))
             {
-                result= "" + add(val1,val2);
+                result+= String.valueOf(add(val1,val2));
             }
             else if(methodName.equalsIgnoreCase("sub"))
             {
-                result= "" + sub(val1,val2);
+                result+= String.valueOf(sub(val1,val2);
             }
             else if(methodName.equalsIgnoreCase("mul"))
             {
-                result= "" + mul(val1,val2);
+                result+=String.valueOf(mul(val1,val2));
             }
             else if(methodName.equalsIgnoreCase("div"))
             {
-                result= "" + div(val1,val2);
+                result+= String.valueOf(div(val1,val2));
+            }
+            else if(methodName.equalsIgnoreCase("pow"))
+            {
+                result+= String.valueOf(pow(val1,val2));
+            }
+            else if(methodName.equalsIgnoreCase("mod"))
+            {
+                result+= String.valueOf(mod(val1,val2));
             }
             byte b1[]=result.getBytes();
             DatagramSocket ds1 = new DatagramSocket();
             DatagramPacket dp1 = new DatagramPacket(b1,b1.length,InetAddress.getLocalHost(),1300);
-            System.out.println("result : "+result+"\n");
+            System.out.println("Result: "+result+"\n");
             ds1.send(dp1);
             }
         }
@@ -79,6 +90,17 @@ class RPCServer
     {
         return val3/val4;
     }
+
+    public double pow(float val3, float val4)
+    {
+        return Math.pow(val3,val4);
+    }
+
+    public float mod(float val3, float val4)
+    {
+        return (int)val3 % (int)val4;
+    }
+
     public static void main(String[] args)
     {
         new RPCServer();

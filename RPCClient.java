@@ -6,9 +6,8 @@ class RPCClient
     {
         try
         {
-            InetAddress ia = InetAddress.getLocalHost();
-            DatagramSocket ds = new DatagramSocket();
-            DatagramSocket ds1 = new DatagramSocket(1300);
+            InetAddress ia = InetAddress.getByName("10.106.6.107");  
+            //InetAddress ia = InetAddress.getLocalHost();
             System.out.println("\nRPC Client\n");
             System.out.println("Insira a operação (ex: add, sub, mult, div) e os números que deseja calcular \n");
             while (true)
