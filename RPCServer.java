@@ -12,9 +12,8 @@ class RPCServer
         result = "(Danilo) ";
         try
         {
-            
             ds=new DatagramSocket(1200);
-            byte b[]=new byte[8192];
+            byte b[]=new byte[4096];
             while(true)
             {
             dp=new DatagramPacket(b,b.length);
@@ -44,7 +43,7 @@ class RPCServer
             }
             else if(methodName.equalsIgnoreCase("sub"))
             {
-                result+= String.valueOf(sub(val1,val2);
+                result+= String.valueOf(sub(val1,val2));
             }
             else if(methodName.equalsIgnoreCase("mul"))
             {
@@ -63,6 +62,8 @@ class RPCServer
                 result+= String.valueOf(mod(val1,val2));
             }
             byte b1[]=result.getBytes();
+            System.out.println("Size: "+String.valueOf(b1.length)+"\n");
+
             DatagramSocket ds1 = new DatagramSocket();
             DatagramPacket dp1 = new DatagramPacket(b1,b1.length,InetAddress.getLocalHost(),1300);
             System.out.println("Result: "+result+"\n");
